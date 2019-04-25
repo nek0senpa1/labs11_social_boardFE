@@ -11,28 +11,28 @@ import {
     getEmails
 } from '../../store/actions';
 
-const ButtonY = styled.button `
-    border: 1px solid #418DCF;
+const ButtonY = styled.button`
+    border: 1px solid #f66042;
     border-radius: 3px;
     color: white;
-    background-color: #418DCF;
+    background-color: #f66042;
     height: 35px;
     width: 100px;
     margin-left: 4px;
   `;
 
-  const ButtonX = styled.button `
-    border: 1px solid #418DCF;
+const ButtonX = styled.button`
+    border: 1px solid #f66042;
     border-radius: 3px;
     color: white;
-    background-color: #418DCF;
+    background-color: #f66042;
     height: 35px;
     width: 100px;
     margin-left: 24px;
     
   `;
-  
-  const StyledLink = styled(NavLink)`
+
+const StyledLink = styled(NavLink)`
     color: white;  
     text-decoration: none;
 
@@ -44,7 +44,7 @@ const ButtonY = styled.button `
 const InputY = styled.input`
   padding-left: 5px;
   height: 35px;
-  width: 350px;
+  width: 250px;
   color: #000000;
   background: dcdcdc;
   border: 1px solid black;
@@ -73,41 +73,46 @@ class ApproveEmailForm extends Component {
 
     render() {
         const {
-            email,
-            first_name,
-            last_name
+            email
         } = this.state;
 
-        return ( 
+        return (
             <div>
                 <h2>Add Approved Emails</h2>
                 <p>(Add one at a time, or upload a CSV file)</p>
 
                 <InputY
-                    placeholder = 'E-mail Address'
-                    name = 'email'
+                    placeholder='E-mail Address'
+                    name='email'
                     type='email'
-                    required="required"
-                    value = {
+                    required
+                    value={
                         email
                     }
-                    onChange = {
+                    onChange={
                         this.handleChange
                     }
                 />
 
                 <ButtonY type='submit'
-                onClick={
-                    this.handleSubmit
-                }>Add</ButtonY>
+                    onClick={
+                        this.handleSubmit
+                    }>Add</ButtonY>
 
-                
-                    <ButtonX>
+
+                <ButtonX>
                     <StyledLink to='/upload'>
                         Import CSV
                     </StyledLink>
-                    </ButtonX>
-                
+                </ButtonX>
+                {/* <br></br>
+                <br></br>
+                <ButtonY>
+                    <StyledLink to='/upload'>
+                        E-Mail List View
+                    </StyledLink>
+                </ButtonY> */}
+
 
             </div>
         );

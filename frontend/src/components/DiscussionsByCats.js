@@ -92,14 +92,14 @@ const DiscussionHeader = styled.div`
       margin-left: 10px;
       padding: 10px 15px;
       border-radius: 5px;
-      border: 1px solid #418DCF;
-      background-color: #418DCF;
+      border: 1px solid #f66042;
+      background-color: #f66042;
       color: white;
 
       &:hover {
         cursor: pointer;
         background-color: white;
-        color: #418DCF;
+        color: #f66042;
       }
     }
   }
@@ -184,6 +184,9 @@ class DiscussionsByCats extends Component {
   handleImageShow = id => {
     this.setState({ isShowImage: !this.state.isShowImage, imageClickedId: id });
   }
+  handleisVoting = () => {
+    this.setState({ isVoting: true })
+  }
   conditionalRender() {
     const { discussions, history, category_name, match, isGettingDiscussions } = this.props;
     const { showAddDiscussionForm, isVoting } = this.state;
@@ -202,8 +205,8 @@ class DiscussionsByCats extends Component {
               </div>
               <div className='filter-add-btn-wrapper'>
                 <div className='filter-wrapper'>
-                  <i className='fab fa-mix' />
-                  <span>Filter by</span>
+                  {/* <i className='fab fa-mix' /> */}
+                  <span>Sort by</span>
                   <select
                     className='filter'
                     onChange={this.handleSelectChange}
@@ -217,7 +220,7 @@ class DiscussionsByCats extends Component {
                   </select>
                 </div>
                 <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
-                  <i className='fas fa-plus-circle' />&nbsp;Add Post
+                  &nbsp;Add Post
                 </button>
               </div>
             </DiscussionHeader>
@@ -241,6 +244,7 @@ class DiscussionsByCats extends Component {
                 toggleAddDiscussionForm={this.toggleAddDiscussionForm}
                 getDiscussions={this.getDiscussions}
                 category_id={match.params.category_id}
+                handleisVoting={this.handleisVoting}
               />
             }
           </DiscussionsWrapper>

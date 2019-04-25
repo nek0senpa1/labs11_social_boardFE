@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NoGo2 from './NoGo2.js';
 import ResourcesLinks from './ResourcesLinks.js';
+import './sidenav.css';
 
 // actions
 import { getCategoriesFollowed, getUsersTeams, getUsers, verifyEmail, getKeyResources } from '../store/actions/index.js';
@@ -16,13 +17,14 @@ import { accountUserTypes, subSilverStartIndex } from '../globals/globals.js';
  ********************************************** Styles *********************************************
  **************************************************************************************************/
 const DivSideNav = styled.div`
-margin-top: 20px;
+  padding-top: 20px;
   flex-direction: column;
   width: 100%;
   user-select:none;
   overflow-y: auto;
   height: calc(100% - 180px);
   min-height: 10%;
+  background-color: ${props => props.theme.bgColor};
 
   span {
     margin-left: 20px;
@@ -43,6 +45,7 @@ margin-top: 20px;
   
   .admin {
     cursor:default;
+    color: black;
     &:hover {
       color:grey;
     }
@@ -81,10 +84,11 @@ const LinkBrowseCategories = styled(Link)`
   //margin-left: -6px;
   color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHover : props.theme.defaultColor};
   border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.theme.defaultColorOnHover}` : '6px solid transparent'};
-  font-weight: normal;
+  font-weight: bold;
   display: flex;
   align-items: center;
   height: 35px;
+  margin-bottom: 15px;
   i {
     cursor: pointer;
     padding: 10px 8px 6px 0;
@@ -123,7 +127,7 @@ const DivCatFollowItems = styled.div`
 const H4AllPosts = styled.h4`
   display: flex;
   align-items: center;
-  margin-bottom: 9px;
+  margin-bottom: 20px;
   border-left: ${props => props.islinkselected === 'true' ? `1px solid ${props.theme.defaultColor}` : '0px solid transparent'};
   i {
     cursor: pointer;
@@ -141,7 +145,7 @@ const LinkAllPosts = styled(Link)`
   display: flex;
   text-decoration: none;
   color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
-  font-weight: normal;
+  font-weight: bold;
   margin-left: -1px;
   margin-right: 41px;
   margin-top: -65px;
@@ -195,6 +199,7 @@ const LiCategoryFollowed = styled.li`
   padding-left: 50px;
   border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props => props.theme.defaultColorOnHover}` : '1px solid transparent'};
   list-style-position: inside;
+  
   &::before{
     // background-color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
     background-color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
@@ -204,7 +209,7 @@ const LiCategoryFollowed = styled.li`
     height: 6px;
     border-radius: 50%;
     margin-right: 16px;
-    margin-bottom: 3px;
+    margin-bottom: 20px;
   }
 `;
 
@@ -214,10 +219,11 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
   text-decoration: none;
   // color: ${props => props.islinkselected === 'true' ? 'blue' : 'black'};
   color: ${props => props.islinkselected === 'true' ? `${props.theme.defaultColorOnHover}` : `${props.theme.defaultColor}`};
-  font-weight: 400;
+  font-weight: bold;
   display: flex;
   align-items: center;
   height: 35px;
+  margin-bottom: 20px;
 
   span {
     width: 30px;
@@ -233,6 +239,7 @@ border-left: ${props => props.islinkselected === 'true' ? `5px solid ${props.the
       padding: 10px 10px 9px 0;
       color: inherit;
       margin-left: 15px;
+      
     }
   }
   &:hover {
@@ -256,8 +263,14 @@ color: ${props => props.islinkselected === 'true' ? props.theme.defaultColorOnHo
   color: ${props => props.theme.defaultColorOnHover};
   cursor: pointer;
 }
+
 `
 const UserTeams = styled.div`
+  .noteams {
+    font-size: .8rem;
+    padding-left: 20px;
+    font-weight: bold;
+  }
   .teams {
     padding-left: 4px;
 
@@ -284,7 +297,8 @@ const CatContent = styled.div`
   display: ${props => props.section === true ? 'block' : 'none'}
 `;
 const ResourcesContent = styled.div`
-  display: ${props => props.section === true ? 'block' : 'none'}
+  display: ${props => props.section === true ? 'block' : 'none'};
+  
 `;
 /***************************************************************************************************
  ********************************************* Component *******************************************
@@ -302,7 +316,8 @@ class SideNav extends Component {
       setWrapperRef: this.setWrapperRef.bind(this),
       updated: this.props.verified,
       isTeamSectionDisplayed: true,
-      isCatSectionDisplayed: true
+      isCatSectionDisplayed: true,
+      isResourcesSectionDisplayed: true,
     }
   }
 
@@ -368,10 +383,12 @@ class SideNav extends Component {
 
     return (
       <DivSideNav isOpen={`${this.props.isOpen}`} ref={this.state.setWrapperRef}>
+
+
         <DivNavContainer>
           {
             (user_type === 'admin') &&
-            <span className='section-select admin'>Admin</span>
+            <span className='section-select admin'><div className="underit">ADMIN</div></span>
           }
           <H4BrowseCategories>
             <div>
@@ -411,8 +428,65 @@ class SideNav extends Component {
         </DivNavContainer>
 
 
-        <span className='section-select' onClick={() => this.setState({ isCatSectionDisplayed: !this.state.isCatSectionDisplayed })}>
-          Categories
+        <span className='section-select admin' onClick={() => this.setState({ isResourcesSectionDisplayed: !this.state.isResourcesSectionDisplayed })}>
+        <div className="underit">RESOURCES</div>
+          {isResourcesSectionDisplayed ? <i className="fas fa-chevron-up"/>: <i className="fas fa-chevron-down"/>}
+        </span>
+        <ResourcesContent section={isResourcesSectionDisplayed}>
+          <DivNavContainer>
+            <H4BrowseCategories>
+            <div className='alignstuff'>
+              <ResourcesLinks className='browse-categories' resources={this.state.resources} />
+            </div>
+            </H4BrowseCategories>
+          </DivNavContainer>  
+        </ResourcesContent>
+
+
+
+        <span className='section-select admin' onClick={() => this.setState({ isTeamSectionDisplayed: !this.state.isTeamSectionDisplayed })}>
+        <div className="underit">TEAMS</div>
+          {isTeamSectionDisplayed ? <i className="fas fa-chevron-up" /> : <i className="fas fa-chevron-down" />}
+        </span>
+        <TeamsContent section={isTeamSectionDisplayed}>
+          <DivNavContainer>
+            <H4BrowseCategories>
+              <DivModalRaised onClick={(ev) => this.props.setAddTeamModalRaised(ev, true)}>
+                <i style={{ marginLeft: 22 + 'px', marginTop: 10 + 'px', marginRight: 9 + 'px', marginBottom: 9 + 'px' }} className="fas fa-plus-circle" />
+                Create Team
+              </DivModalRaised>
+              <div>
+                <LinkBrowseCategories
+                  to='/teams'
+                  islinkselected={(this.state.linkSelected === 'Teams').toString()}
+                  onClick={() => this.selectLink('Teams')}
+                  className='browse-categories'
+                ><i className="fas fa-book-open" />Browse Teams</LinkBrowseCategories>
+
+              </div>
+              <UserTeams>
+                {this.state.userTeams.length === 0 ? <div className='noteams'>You're not apart of any Teams Yet!</div> : this.state.userTeams.map(team => (
+                  <LinkSideNav 
+                    to={`/team/discussions/${team.team_id}`}
+                    islinkselected={(this.state.linkSelected === team.team_name).toString()}
+                    onClick={() => this.selectLink(team.team_name)}
+                    className='browse-categories teams'
+                    key={team.team_id}>
+                    <span>
+                      { team.logo ? <img src={team.logo} alt='team logo' /> : <i className="fas fa-users logo"></i>}
+                    </span>
+                    {team.team_name}
+                  </LinkSideNav>
+                ))}
+              </UserTeams>
+            </H4BrowseCategories>
+          </DivNavContainer>
+        </TeamsContent>
+
+
+
+        <span className='section-select admin' onClick={() => this.setState({ isCatSectionDisplayed: !this.state.isCatSectionDisplayed })}>
+        <div className="underit">CATEGORIES</div>
           {isCatSectionDisplayed ? <i className="fas fa-chevron-up" /> : <i className="fas fa-chevron-down" />}
         </span>
         <CatContent section={isCatSectionDisplayed}>
@@ -483,75 +557,20 @@ class SideNav extends Component {
             </DivCategoriesFollowed>
           </DivNavContainer>
         </CatContent>
-        <span className='section-select' onClick={() => this.setState({ isTeamSectionDisplayed: !this.state.isTeamSectionDisplayed })}>
-          Teams
-          {isTeamSectionDisplayed ? <i className="fas fa-chevron-up" /> : <i className="fas fa-chevron-down" />}
-        </span>
-        <TeamsContent section={isTeamSectionDisplayed}>
-          <DivNavContainer>
-            <H4BrowseCategories>
-              <DivModalRaised onClick={(ev) => this.props.setAddTeamModalRaised(ev, true)}>
-                <i style={{ marginLeft: 22 + 'px', marginTop: 10 + 'px', marginRight: 9 + 'px', marginBottom: 9 + 'px' }} className="fas fa-plus-circle" />
-                Create Team
-              </DivModalRaised>
-              <div>
-                <LinkBrowseCategories
-                  to='/teams'
-                  islinkselected={(this.state.linkSelected === 'Teams').toString()}
-                  onClick={() => this.selectLink('Teams')}
-                  className='browse-categories'
-                ><i className="fas fa-book-open" />Browse Teams</LinkBrowseCategories>
 
-              </div>
-              <UserTeams>
-                {this.state.userTeams.length === 0 ? <div>You're not apart of any Teams Yet!</div> : this.state.userTeams.map(team => (
-                  <LinkSideNav 
-                    to={`/team/discussions/${team.team_id}`}
-                    islinkselected={(this.state.linkSelected === team.team_name).toString()}
-                    onClick={() => this.selectLink(team.team_name)}
-                    className='browse-categories teams'
-                    key={team.team_id}>
-                    <span>
-                      { team.logo ? <img src={team.logo} alt='team logo' /> : <i className="fas fa-users logo"></i>}
-                    </span>
-                    {team.team_name}
-                  </LinkSideNav>
-                ))}
-              </UserTeams>
-              <div>
-                <LinkBrowseCategories
-                  to={`/teamanalytics`}
-                  islinkselected={(this.state.linkSelected === 'TeamAnalytics').toString()}
-                  onClick={() => this.selectLink('TeamAnalytics')}
-                  className='browse-categories'
-                ><i className="fas fa-chart-line" />Team Analytics</LinkBrowseCategories>
 
-              </div>
-              <div>
-                <LinkBrowseCategories
-                  to={`/teamconversations`}
-                  islinkselected={(this.state.linkSelected === 'TeamConversations').toString()}
-                  onClick={() => this.selectLink('TeamConversations')}
-                  className='browse-categories'
-                ><i className="fas fa-comment" />Team Conversations</LinkBrowseCategories>
-              </div>
-            </H4BrowseCategories>
-          </DivNavContainer>
-        </TeamsContent>
 
-        <span className='section-select' onClick={() => this.setState({ isResourcesSectionDisplayed: !this.state.isResourcesSectionDisplayed })}>
-          Resources
-          {isResourcesSectionDisplayed ? <i className="fas fa-chevron-up"/>: <i className="fas fa-chevron-down"/>}
-        </span>
-        <ResourcesContent section={isResourcesSectionDisplayed}>
-          <DivNavContainer>
-            <H4BrowseCategories>
-            <div>
-              <ResourcesLinks className='browse-categories' resources={this.state.resources} />
-            </div>
-            </H4BrowseCategories>
-          </DivNavContainer>  
-        </ResourcesContent>
+
+        
+
+
+
+
+        
+
+
+
+
       </DivSideNav>
     );
   }

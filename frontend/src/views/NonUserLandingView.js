@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { background, computericon, example, subscriptions } from '../assets/index.js';
-import { Link } from 'react-router-dom';
+import { background, subscriptions } from '../assets/index.js';
+// import { Link } from 'react-router-dom';
 // import { register, isEmailTaken, isUsernameTaken } from '../store/actions/index.js';
 // import { RegisterDropdown } from './index.js';
+import { symposiumDark, symposiumLight, symposiumLightOrange, symposiumDarkOrange } from '../assets/index.js';
 
 const Woah = styled.section`
   width: 100%;
@@ -21,14 +22,13 @@ const Woah = styled.section`
 
 const BackgroundBox = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: center;
+  
   background: white;
   background-size: cover;
+  background-image: url("${background}");
   background-position: center center;
   height: 65vh;
   margin-bottom: 20px;
-  background: #efefef;
 
   @media (max-width: 800px) {
     margin-bottom: 150px;
@@ -37,7 +37,13 @@ const BackgroundBox = styled.div`
 `;
 
 const LandingDivBox = styled.div`
-    align-self: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  color: white;
+  background: #0000009c;
   `;
 
 const LandingText = styled.h1`
@@ -47,12 +53,10 @@ const LandingText = styled.h1`
   display: flex;
   justify-content: center;
   align-text: center;
-  color: black;
   font-size: 42px;
   margin-bottom: 15px;
   @media (max-width: 1240px) {
     width: 100%;
-    color: black;
     font-size: 32px;
     
   }
@@ -94,36 +98,37 @@ const GetStartedButton = styled.button`
 // auto;margin-right: auto;}'}   } `; const Vidception = styled.div `   width:
 // 60%;   height: 100%;   padding: 130px;   padding-left: 0px;   `;
 
-const TopFiller = styled.div`
+// const TopFiller = styled.div`
   
-  `;
+//   `;
 
-const BottomFiller = styled.section`
-    display: flex;
-    justify-content: space-evenly
-    margin-top: 10px;
-    width: 100%;
-    height: 100%
-    postion: fixed;
-    height: 25vh;
+// const BottomFiller = styled.section`
+//     display: flex;
+//     justify-content: space-evenly
+//     margin-top: 10px;
+//     width: 100%;
+//     height: 100%
+//     postion: fixed;
+//     height: 25vh;
     
-    @media(max-width: 1240px) {
-        flex-direction: column;
-        height: 60vh;
-      }
+//     @media(max-width: 1240px) {
+//         flex-direction: column;
+//         height: 60vh;
+//       }
     
-  `;
+//   `;
 
-const TextBlurb = styled.div`
-    vertical-align: middle;
-    overflow-wrap: break-word;
-    text-align: center;
-    width: 100%;
-  `;
+// const TextBlurb = styled.div`
+//     vertical-align: middle;
+//     overflow-wrap: break-word;
+//     text-align: center;
+//     width: 100%;
+//   `;
 
 const LandingDiv = styled.div`
     display: flex;
     justify-content: center;
+    margin: 10px;
   `;
 
 const BottomFillerDiv = styled.div`
@@ -176,7 +181,7 @@ const TeamMember = styled.div`
   margin: 10px;
   background-color: white;
   border: 2px solid lightgray;
-
+ cursor: pointer;
 
   img {
     width: 256px;
@@ -200,8 +205,12 @@ class NonUserLandingView extends Component {
         <BackgroundBox>
           <LandingDivBox>
             <LandingText loggedIn={this.props.user_id !== 0}>
-              Welcome to Social App 2
-              </LandingText>
+              Welcome to Social App 3
+              
+            </LandingText>
+            <LandingDiv>
+            <img src={symposiumLightOrange} />
+            </LandingDiv>
             <LandingDiv>
               <p>A place where discussions are built to further projects and encourage conversations.</p>
             </LandingDiv>
@@ -227,22 +236,37 @@ class NonUserLandingView extends Component {
           <TeamContainer>
             <h2>TEAM MEMBERS</h2>
             <TeamList>
-              <TeamMember>
+            <TeamMember onClick={()=> window.open("https://github.com/nek0senpa1 ", "_blank")}>
+                <h2>Amber Meador</h2>
+                <img src='https://avatars2.githubusercontent.com/u/44776869?s=400&v=4' alt='Member' />
+              </TeamMember>
+
+              <TeamMember onClick={()=> window.open("https://github.com/TraiLynne ", "_blank")}>
+                <h2>Trai Compton</h2>
+                <img src='https://avatars1.githubusercontent.com/u/24273686?s=460&v=4' alt='Member' />
+              </TeamMember>
+
+              <TeamMember onClick={()=> window.open("https://github.com/imon3 ", "_blank")}>
+                <h2>Imonhimi Ovbude</h2>
+                <img src='https://avatars1.githubusercontent.com/u/40075966?s=460&v=4' alt='Member' />
+              </TeamMember>
+              
+              <TeamMember onClick={()=> window.open("https://github.com/ModestoT", "_blank")}>
                 <h2>Modesto Tamayo</h2>
                 <img src='https://avatars2.githubusercontent.com/u/32940785?s=400&v=4' alt='Member' />
               </TeamMember>
 
-              <TeamMember>
+              <TeamMember onClick={()=> window.open("https://github.com/codejoncode", "_blank")}>
                 <h2>Jonathan Holloway</h2>
                 <img src='https://avatars2.githubusercontent.com/u/38900224?s=400&v=4' alt='Member' />
               </TeamMember>
 
-              <TeamMember>
+              <TeamMember onClick={()=> window.open("https://github.com/mag16", "_blank")}>
                 <h2>Marco Guzman</h2>
                 <img src='https://avatars0.githubusercontent.com/u/17074832?s=460&v=4' alt='Member' />
               </TeamMember>
 
-              <TeamMember>
+              <TeamMember onClick={()=> window.open("https://github.com/jeff15113 ", "_blank")}>
                 <h2>Jeffery Artrip</h2>
                 <img src='https://avatars1.githubusercontent.com/u/9707341?s=460&v=4' alt='Member' />
               </TeamMember>

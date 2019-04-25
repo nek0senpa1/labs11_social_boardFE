@@ -129,15 +129,15 @@ const CommentSort = styled.div`
     padding: 10px 15px;
     border-radius: 5px;
     border: none;
-    background-color: #418dcf;
+    background-color: #f66042;
     color: white;
-    border: 1px solid #418dcf;
+    border: 1px solid #f66042;
 
     &:hover {
       cursor: pointer;
       background-color: white;
-      color: #418dcf;
-      border: 1px solid #418dcf;
+      color: #f66042;
+      border: 1px solid #f66042;
     }
   }
 
@@ -317,7 +317,7 @@ class TeamDiscussion extends Component {
         <Wrapper>
           <div className="back-follow-wrapper">
             <Link className="back" to={`/team/discussions/${team_id}`}>
-              <i className="far fa-arrow-alt-circle-left" />
+              <i className="fa fa-arrow-left" />
             </Link>
             <Follow discussion_id={id} historyPush={historyPush} />
           </div>
@@ -342,14 +342,14 @@ class TeamDiscussion extends Component {
                         onClick={this.toggleAddPostForm}
                         className="add-post-btn desktop"
                       >
-                        <i className="fas fa-plus-circle" />
+                        
                         &nbsp;Add Comment
                       </button>
                     </div>
                     <div className="sort">
                       <div className="filter-wrapper">
-                        <i className="fab fa-mix" />
-                        <span className="filter-by">Filter by &nbsp;</span>
+                        {/* <i className="fab fa-mix" /> */}
+                        <span className="filter-by">Sort by &nbsp;</span>
                         <select
                           className="filter"
                           onChange={this.handleSelectChange}
@@ -378,6 +378,7 @@ class TeamDiscussion extends Component {
                     toggleAddPostForm={this.toggleAddPostForm}
                     team_id={team_id}
                     handleTeamFilter={this.handleTeamFilter}
+                    handleisVoting={this.handleisVoting}
                   />
                 )}
                 {posts ? (

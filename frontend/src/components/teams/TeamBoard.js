@@ -187,13 +187,13 @@ const DiscussionHeader = styled.div`
       }
 
       &:hover {
-        color: ${ props => props.theme.defaultColorOnHover}
+        color: #f18500
       }
     } 
       
     .tab-selected {
-      color: dodgerblue;
-      border-bottom: 1px solid dodgerblue;
+      color: #f66042;
+      border-bottom: 1px solid #f66042;
     }
   }
 
@@ -227,31 +227,31 @@ const DiscussionHeader = styled.div`
       margin-left: 10px;
       padding: 10px 15px;
       border-radius: 5px;
-      border: 1px solid #418DCF;
-      background-color: #418DCF;
+      border: 1px solid #f66042;
+      background-color: #f66042;
       color: white;
 
       &:hover {
         cursor: pointer;
         background-color: white;
-        color: #418DCF;
+        color: #f66042;
       }
     }
   }
 `;
 
 const InviteButton = styled.button `
-  border: 1px solid #418DCF;
+  border: 1px solid #f66042;
   border-radius: 3px;
   color: white;
-  background-color: #418DCF;
+  background-color: #f66042;
   margin: 0 2px 5%;
   cursor: pointer;
   padding: 12px;
 
   &:hover {
-    color: #418DCF;
-    border: 1px solid #418DCF;
+    color: #f66042;
+    border: 1px solid #f66042;
     background-color: white;
   }
 `;
@@ -288,7 +288,7 @@ class TeamBoard extends Component {
     this.setState({ isVoting: true });
     return handleDiscussionVote(discussion_id, type)
       .then(() => getTeamDiscussions(match.params.team_id, order, orderType)
-        .then(() => this.setState({ isVoting: false }))
+        
       );
   };
   handleImageShow = id => {
@@ -354,7 +354,7 @@ class TeamBoard extends Component {
   getDiscussions = () => {
     const { order, orderType } = this.state;
     const { getTeamDiscussions, match } = this.props;
-    return getTeamDiscussions(match.params.team_id, order, orderType);
+    return getTeamDiscussions(match.params.team_id, order, orderType).then(() => this.setState({ isVoting: false }));
   };
   setTeamMemberModal = (e, status) => {
     e.stopPropagation();
@@ -374,6 +374,9 @@ class TeamBoard extends Component {
       getTeamMembers(team_id);
     };
   };
+  handleisVoting = () => {
+    this.setState({ isVoting: true })
+  }
   conditionalRender() {
     const { discussions, history, team, match, team_members, user_id, isGettingTeamDiscussions } = this.props;
     const { showAddDiscussionForm, isTeamMembersTab, isAddTeamMemberModalRaised, isVoting } = this.state;
@@ -414,8 +417,8 @@ class TeamBoard extends Component {
               </div>
               <div className='filter-add-btn-wrapper'>
                 <div className='filter-wrapper'>
-                  <i className='fab fa-mix' />
-                  <span>Filter by</span>
+                  {/* <i className='fab fa-mix' /> */}
+                  <span>Sort by</span>
                   <select
                     className='filter'
                     onChange={this.handleSelectChange}
@@ -429,7 +432,7 @@ class TeamBoard extends Component {
                   </select>
                 </div>
                 <button onClick={this.toggleAddDiscussionForm} className='add-post-btn'>
-                  <i className='fas fa-plus-circle' />&nbsp;Add Post
+                  &nbsp;Add Post
                 </button>
               </div>
             </DiscussionHeader>
@@ -449,7 +452,7 @@ class TeamBoard extends Component {
                 />)
               }
             </div>
-            <TeamWiki wiki={team.wiki} isTeamOwner={isTeamOwner} team_id={team.id} getDiscussions={this.getDiscussions}/>
+            <TeamWiki wiki={team.wiki} isTeamOwner={isTeamOwner} team_id={team.id} getDiscussions={this.getDiscussions} handleisVoting={this.handleisVoting}/>
             <div id='team members' className='team-members tab-content'>
             {!isMember ? null : isTeamMembersTab ? <InviteButton onClick={e => this.setTeamMemberModal(e, true)}>Invite Team Member</InviteButton> : null}
               {team_members.map( (member, i)=> {
@@ -463,7 +466,7 @@ class TeamBoard extends Component {
               })}
             </div>
             {isTeamOwner ? 
-              <TeamSettings team={team} getDiscussions={this.getDiscussions} history={history} /> : null
+              <TeamSettings team={team} getDiscussions={this.getDiscussions} history={history} handleisVoting={this.handleisVoting} /> : null
             }
             {
               showAddDiscussionForm &&
@@ -471,6 +474,7 @@ class TeamBoard extends Component {
                 toggleAddDiscussionForm={this.toggleAddDiscussionForm}
                 getDiscussions={this.getDiscussions}
                 team_id={match.params.team_id}
+                handleisVoting={this.handleisVoting}
               />
             }
             </DiscussionsWrapper>

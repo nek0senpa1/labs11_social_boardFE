@@ -23,20 +23,37 @@ const FollowWrapper = styled.div`
 const Followed = styled.div`
   .follow {
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 15px;
     padding: 10px 15px;
 		border-radius: 5px;
-		border: 1px solid #418DCF;
-		background-color: ${ ({ isFollowing }) => isFollowing ? 'lightsteelblue' : '#418DCF' };
-    color: white;
+		border: 1px solid #f66042;
+		
     
     &:hover {
       background-color: white;
-      color: #418DCF;
+      color: #f66042;
       cursor: pointer;
     }
   }
 `;
+
+const ButtonY = styled.button`
+    border: 1px solid #f66042;
+    border-radius: 3px;
+    color: white;
+    background-color: #f66042;
+    height: 35px;
+    width: 100px;
+    margin-left: 14px;
+    cursor: pointer;
+    margin-right: 20px;
+
+    &:hover {
+      background-color: white;
+      color: #f66042;
+      cursor: pointer;
+    }
+`
 
 
 /***************************************************************************************************
@@ -80,22 +97,22 @@ class FollowCat extends Component {
           isTeamMember ?
           <FollowWrapper>
             <Followed isTeamMember = { isTeamMember }>
-              <button
-                className="follow"
+              <ButtonY
+                
                 onClick={this.handleLeaveTeam}
               >
-                <i className={isTeamMember ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Leave Team!
-              </button>
+                Leave Team!
+              </ButtonY>
             </Followed>
           </FollowWrapper> : 
             <FollowWrapper>
               <Followed>
-                <button
-                  className="follow"
+                <ButtonY
+                  
                   onClick={this.handleFollowClick}
                 >
-                  <i className={isTeamMember ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Join!
-                </button>
+                  Join!
+                </ButtonY>
               </Followed>
             </FollowWrapper>
         );
@@ -106,24 +123,24 @@ class FollowCat extends Component {
           onCategoriesPage ?
           <FollowWrapper>
             <Followed isFollowing = { isFollowing }>
-              <button
-                className="follow"
+              <ButtonY
+                
                 onClick={this.handleFollowClick}
                 onChange = { this.handleChange }
               >
-                <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Unfollow
-              </button>
+                &nbsp;Unfollow
+              </ButtonY>
             </Followed>
         </FollowWrapper> : null :
           <FollowWrapper>
             <Followed>
-              <button
-                className="follow"
+              <ButtonY
+                
                 onClick={this.handleFollowClick}
                 onChange = { this.handleChange }
               >
-                <i className={isFollowing ? "fas fa-minus-circle" : "fas fa-plus-circle"}></i>&nbsp;&nbsp;Follow
-              </button>
+                &nbsp;Follow
+              </ButtonY>
             </Followed>
           </FollowWrapper>
         );

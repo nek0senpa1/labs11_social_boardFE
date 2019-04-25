@@ -30,7 +30,7 @@ const SearchBox = styled.div`
   position: relative;
 
   input {
-    background-color: #DCDCDC;
+    background-color: transparent;
     border-radius: 35px;
 
     &:focus {
@@ -58,7 +58,7 @@ const SearchBox = styled.div`
       user-select: none;
 
       @media (min-width: 320px) and (max-width: 767px) {
-        margin: auto;
+        margin: 4px;
       }
     }
 
@@ -170,6 +170,10 @@ const SearchBox = styled.div`
       text-indent: 27px;
       ::placeholder {
         color: #babec8;
+      }
+      @media (max-width: 767px) {
+        padding-left: 0px;
+        padding-right: 0px;
       }
     }
   }
@@ -469,8 +473,8 @@ class Search extends Component {
 
             <div className="order-type-wrapper">
               <div className="filter-wrapper">
-                <i className="fab fa-mix" />
-                <span className="filter-by">Filter by &nbsp;</span>
+                {/* <i className="fab fa-mix" /> */}
+                <span className="filter-by">Sort by &nbsp;</span>
                 <select
                   className="filter"
                   onChange={this.handleSelectChange}

@@ -118,6 +118,8 @@ const CommentSort = styled.div`
     justify-content: flex-start;
     align-items: center;
     width: 50%;
+    font-weight: bold;
+    font-size: 1.5rem;
 
     @media (max-width: 530px) {
       width: 30%;
@@ -125,19 +127,19 @@ const CommentSort = styled.div`
   }
 
   .add-post-btn {
-    margin-left: 10px;
+    margin-left: 20px;
     padding: 10px 15px;
     border-radius: 5px;
     border: none;
-    background-color: #418dcf;
+    background-color: #f66042;
     color: white;
-    border: 1px solid #418dcf;
+    border: 1px solid #f66042;
 
     &:hover {
       cursor: pointer;
       background-color: white;
-      color: #418dcf;
-      border: 1px solid #418dcf;
+      color: black;
+      border: 1px solid #f66042;
     }
   }
 
@@ -317,7 +319,7 @@ class Discussion extends Component {
       <Wrapper>
         <div className="back-follow-wrapper">
           <Link className="back" to={`/discussions/category/${category_id}`}>
-            <i className="far fa-arrow-alt-circle-left" />
+            <i className="fa fa-arrow-left" />
           </Link>
           <Follow discussion_id={id} historyPush={historyPush} />
         </div>
@@ -336,19 +338,19 @@ class Discussion extends Component {
               <CommentSort>
                 <div className="comment-sort-wrapper">
                   <div className="title-add-wrapper">
-                    <span className="title">Comments</span>
+                    <span className="title">Comments: </span>
                     <button
                       onClick={this.toggleAddPostForm}
                       className="add-post-btn desktop"
                     >
-                      <i className="fas fa-plus-circle" />
-                      &nbsp;Add Comment
+                      
+                      &nbsp;Leave Comment
                     </button>
                   </div>
                   <div className="sort">
                     <div className="filter-wrapper">
-                      <i className="fab fa-mix" />
-                      <span className="filter-by">Filter by &nbsp;</span>
+                      {/* <i className="fab fa-mix" /> */}
+                      <span className="filter-by">Sort by &nbsp;</span>
                       <select
                         className="filter"
                         onChange={this.handleSelectChange}
@@ -376,6 +378,7 @@ class Discussion extends Component {
                   historyPush={historyPush}
                   toggleAddPostForm={this.toggleAddPostForm}
                   handleFilterChange={this.handleFilterChange}
+                  handleisVoting={this.handleisVoting}
                 />
               )}
               <Posts>

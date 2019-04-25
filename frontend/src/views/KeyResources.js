@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import styled from 'styled-components';
-import { connect } from "react-redux";
-import Users from './Users';
-
+import { connect } from 'react-redux';
+import NoGo2 from '../components/NoGo2';
 import '../components/css/Admin.css'
 import KeyResourceForm from '../components/forms/KeyResourceForm';
 import ApprovedKeyResources from '../components/ApprovedKeyResources';
@@ -38,7 +36,7 @@ align-content: center;
 const Boxed = styled.div`
 width: 100%;
 padding: 10px;
-border: 2px solid #418dcf;
+border: 1px solid #f66042;
 border-radius: 5px;
 flex-direction: column;
 justify-content: space-around;
@@ -53,16 +51,26 @@ width: 90%;
 
 
 class KeyResources extends React.Component {
-    constructor() {
-        super()
-
-    }
+    constructor(props) {
+		super(props)
+		this.state = {
+		  
+		  updated: this.props.verified,
+		  
+		}
+	  }
 
     // componentDidMount() {
 
     // }
 
     render() {
+
+        if (!this.props.verified) {
+			return (
+			  <NoGo2 />
+			)
+		  }
         
         return (
             <TableWrapper>
@@ -89,11 +97,12 @@ class KeyResources extends React.Component {
     }
 }
 
-const mapStoreToProps = state => {
-    console.log('Admin State', state)
-    return {
+const mapStateToProps = state => ({
+	verified: state.users.verified,
+  });
 
-    };
-};
+export default connect(
+	mapStateToProps,
+  {}
+)(KeyResources);
 
-export default KeyResources;
