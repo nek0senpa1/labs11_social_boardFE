@@ -205,7 +205,7 @@ class NonUserLandingView extends Component {
         <BackgroundBox>
           <LandingDivBox>
             <LandingText loggedIn={this.props.user_id !== 0}>
-              Welcome to Social App 3
+              Welcome to Symposium DEMO SITE
               
             </LandingText>
             <LandingDiv>
@@ -213,6 +213,7 @@ class NonUserLandingView extends Component {
             </LandingDiv>
             <LandingDiv>
               <p>A place where discussions are built to further projects and encourage conversations.</p>
+	      <p>Login with admin/admin to view the demo abilities without modifying the main site!</p>
             </LandingDiv>
             <LandingDiv>
               <GetStartedButton onClick={toggleRegisterModal}> Get Started</GetStartedButton>
